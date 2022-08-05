@@ -1,0 +1,41 @@
+﻿@model IEnumerable<AmazonMVC.Models.Merchant>
+
+@{
+    ViewData["Title"] = "All Merchant";
+}
+<h3 class="text-center" >Merchant Details</h3>
+<table class="table" border="1">
+    <thead>
+        
+        <tr>
+            <th>Merchant Id </th>
+            <th>Merchant Email </th>
+            <th>Merchant Name </th>
+            <th>Merchant PhoneNumber </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MerchantId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MerchantEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MerchantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MerchantPhoneNumber)
+            </td>
+            
+           @* <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>
