@@ -37,8 +37,7 @@ namespace AmazonMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> MerchantRegistration(Merchant merchant)
         {
-            var bigCities = new List<Product>();
-            merchant.Products = bigCities;
+            
 
 
 
