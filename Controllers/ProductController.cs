@@ -29,6 +29,26 @@ namespace AmazonMVC.Controllers
             }
 
         }
+        public async Task<IActionResult> GetAllCategory()
+        {
+            List<Category>? merchants = new List<Category>();
+            using (var Client = new HttpClient())
+            {
+                Client.BaseAddress = new Uri(BaseUrl);
+                Client.DefaultRequestHeaders.Clear();
+                Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await Client.GetAsync("api/Admin/GetAllCategory");
+                if (Res.IsSuccessStatusCode)
+                {
+                    var MerchantResponse = Res.Content.ReadAsStringAsync().Result;
+                    merchants = JsonConvert.DeserializeObject<List<Category>>(MerchantResponse);
+
+                }
+                return View(merchants);
+
+            }
+
+        }
         public IActionResult AddProduct()
         {
             return View();

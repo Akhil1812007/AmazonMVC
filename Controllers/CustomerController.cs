@@ -50,7 +50,7 @@ namespace AmazonMVC.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction();
+                    return RedirectToAction("");
                 }
                 else
                 {

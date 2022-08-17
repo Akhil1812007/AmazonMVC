@@ -72,7 +72,7 @@ namespace AmazonMVC.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("GetAllMerchant");
+                    return RedirectToAction();
                 }
                 else
                 {
