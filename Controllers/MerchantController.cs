@@ -61,10 +61,7 @@ namespace AmazonMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> MerchantLogin(Merchant merchant)
         {
-            //merchant.ConfirmPassword = merchant.MerchantPassword;
-            //merchant.MerchantPhoneNumber = null;
-            //merchant.MerchantName = null;
-            //merchant.Products = null;
+            
             using (HttpClient httpClient = new HttpClient())
             {
 
@@ -79,8 +76,8 @@ namespace AmazonMVC.Controllers
                 }
                 else
                 {
-                    ViewBag.ErrorMessage("Invalid Credentials");
-                    return View(merchant);
+                    ViewBag.ErrorMessage="Invalid Credentials";
+                    return View();
                 }
                 
                 

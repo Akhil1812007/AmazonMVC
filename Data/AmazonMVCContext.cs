@@ -15,5 +15,7 @@ namespace AmazonMVC.Data
         }
 
         public DbSet<AmazonMVC.Models.Customer> Customer { get; set; } = default!;
+
+        public DbSet<AmazonMVC.Models.Product>? Product { get; set; }
     }
 }
