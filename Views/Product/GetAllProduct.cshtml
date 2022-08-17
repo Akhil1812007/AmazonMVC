@@ -18,12 +18,14 @@
            <th>
                 price
             </th>
-           
+            <th>
+                image
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Category)
             </th>
           
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
@@ -44,7 +46,7 @@
             </td>
            
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                <a asp-action="UpdateProduct" asp-route-id="@item.ProductId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
             </td>

@@ -59,7 +59,7 @@ namespace AmazonMVC.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> MerchantLogin(Merchant merchant)
+        public async Task<IActionResult> MerchantLogin(Merchant? merchant)
         {
             
             using (HttpClient httpClient = new HttpClient())
@@ -69,10 +69,13 @@ namespace AmazonMVC.Controllers
                 httpClient.BaseAddress = new Uri(BaseUrl);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(merchant), Encoding.UTF8, "application/json");
                 var response=await httpClient.PostAsync("api/Merchant/MerchantLogin", content);
-
+               
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction();
+                    var MerchantResponse = response.Content.ReadAsStringAsync().Result;
+                    merchant = JsonConvert.DeserializeObject<Merchant>(MerchantResponse);
+                    TempData["MerchantId"] = merchant.MerchantId;
+                    return RedirectToAction("GetAllProduct","Product");
                 }
                 else
                 {
