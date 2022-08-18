@@ -61,7 +61,7 @@ namespace AmazonMVC.Controllers
                 Client.BaseAddress = new Uri(BaseUrl);
                 Client.DefaultRequestHeaders.Clear();
                 Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await Client.GetAsync("api/Product/GetProductId");
+                HttpResponseMessage Res = await Client.GetAsync("api/Admin/GetAllCategory");
                 if (Res.IsSuccessStatusCode)
                 {
                     var Response = Res.Content.ReadAsStringAsync().Result;
@@ -73,7 +73,7 @@ namespace AmazonMVC.Controllers
             }
 
         }
-        [HttpPost]
+        
         public async Task<List<Category>> ChooseCategory()
         {
             List<Category> ?c = new List<Category>();
@@ -105,18 +105,11 @@ namespace AmazonMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(Product product)
         {
-
-
-
-
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri(BaseUrl);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("api/Product/product", content);
-
-
-
                 return RedirectToAction("GetAllProduct");
             }
 
@@ -139,14 +132,31 @@ namespace AmazonMVC.Controllers
                 httpClient.BaseAddress = new Uri(BaseUrl);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
                 var response = await httpClient.PutAsync("api/Product/"+product, content);
-
-
-
                 return RedirectToAction("GetAllProduct");
             }
-           
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetProductByMerchant()
+        {
+            var id = TempData["MerchantId"];
+            List<Product>? p = new List<Product>();
+            using (var Client = new HttpClient())
+            {
+                Client.BaseAddress = new Uri(BaseUrl);
+                Client.DefaultRequestHeaders.Clear();
+                Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await Client.GetAsync("api/Merchant/MerchantId?MerchantId=" + id);
+                if (Res.IsSuccessStatusCode)
+                {
+                    var Response = Res.Content.ReadAsStringAsync().Result;
+                    p = JsonConvert.DeserializeObject<List<Product>>(Response);
 
-            
+                }
+                
+
+            }
+            return View(p);
+
         }
 
 

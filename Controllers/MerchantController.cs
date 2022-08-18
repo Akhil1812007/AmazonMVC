@@ -75,7 +75,7 @@ namespace AmazonMVC.Controllers
                     var MerchantResponse = response.Content.ReadAsStringAsync().Result;
                     merchant = JsonConvert.DeserializeObject<Merchant>(MerchantResponse);
                     TempData["MerchantId"] = merchant.MerchantId;
-                    return RedirectToAction("GetAllProduct","Product");
+                    return RedirectToAction("GetProductByMerchant","Product");
                 }
                 else
                 {
