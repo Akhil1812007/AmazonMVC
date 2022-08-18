@@ -25,7 +25,7 @@ namespace AmazonMVC.Controllers
                 httpClient.BaseAddress = new Uri(BaseUrl);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(ct), Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("api/Cart", content);
-                return RedirectToAction("GetCartByCustomer", "Cart");
+                return RedirectToAction("GetCartByCustomer","Cart");
             }
 
         }
@@ -39,7 +39,7 @@ namespace AmazonMVC.Controllers
                 Client.BaseAddress = new Uri(BaseUrl);
                 Client.DefaultRequestHeaders.Clear();
                 Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await Client.GetAsync("api/Cart"+id);
+                HttpResponseMessage Res = await Client.GetAsync("api/Customer/"+id);
                 if (Res.IsSuccessStatusCode)
                 {
                     var Response = Res.Content.ReadAsStringAsync().Result;

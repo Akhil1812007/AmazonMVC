@@ -44,9 +44,11 @@
            
             <td>
                 <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@item.ProductId">Add to cart</a> 
+              
                 
             </td>
         </tr>
 }
+  <a asp-controller="Cart" asp-action="GetCartByCustomer" >View cart</a> 
     </tbody>
 </table>

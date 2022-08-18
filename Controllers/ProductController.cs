@@ -125,8 +125,10 @@ namespace AmazonMVC.Controllers
         [HttpPost]
         public  async Task<IActionResult> UpdateProduct(Product product)
         {
-            product.MerchantId = Convert.ToInt32(TempData["MerchantId"]);
             
+            product.MerchantId = HttpContext.Session.GetInt32("MerchantId");
+            
+
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri(BaseUrl);
