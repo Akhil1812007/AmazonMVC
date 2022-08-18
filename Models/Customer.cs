@@ -7,22 +7,21 @@ namespace AmazonMVC.Models
     {
         [Key]
         public int CustomerId { get; set; }
-
-        public string? CustomerEmail { get; set; }
         [Required]
+        public string? CustomerEmail { get; set; }
+        
         public string? CustomerName { get; set; }
 
 
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone Number")]
-        [Required(ErrorMessage = "Phone Number Required!")]
+        
         [StringLength(10, MinimumLength = 10)]
 
         public string? CustomerPhone { get; set; }
-        [Required]
+        
         public string? CustomerCity { get; set; }
 
-        [Required]
         [StringLength(6, MinimumLength = 6)]
 
         public string? CustomerPincode { get; set; }

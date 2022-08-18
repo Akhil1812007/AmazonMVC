@@ -16,30 +16,23 @@ namespace AmazonMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> CustomerRegistration(Customer customer)
         {
-
-
-
-
+            customer.ConfirmPassword = customer.CustomerPassword;
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri(BaseUrl);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("api/Customer", content);
-
-
-
-                return RedirectToAction();
+                return RedirectToAction("CustomerLogin");
             }
 
         }
-        public IActionResult MerchantLogin()
+        public IActionResult CustomerLogin()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> CustomerLogin(Customer customer)
+        public async Task<IActionResult> CustomerLogin(Customer? customer)
         {
-
             using (HttpClient httpClient = new HttpClient())
             {
 
@@ -47,10 +40,12 @@ namespace AmazonMVC.Controllers
                 httpClient.BaseAddress = new Uri(BaseUrl);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("api/Customer/login", content);
-
-                if (response.IsSuccessStatusCode)
+                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("");
+                    var CustomerResponse = response.Content.ReadAsStringAsync().Result;
+                     customer= JsonConvert.DeserializeObject<Customer>(CustomerResponse);
+                    TempData["CustomerId"] = customer.CustomerId;
+                    return RedirectToAction("GetAllProduct", "Product");
                 }
                 else
                 {

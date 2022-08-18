@@ -1,0 +1,39 @@
+﻿@model AmazonMVC.Models.Customer
+
+@{
+    ViewData["Title"] = "CustomerLogin";
+}
+
+<h4>CustomerLogin</h4>
+
+<hr />
+@if (ViewBag.ErrorMessage!=null)
+{
+    <div class="text-danger">@ViewBag.ErrorMessage</div>
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CustomerLogin">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CustomerEmail" class="control-label">E-mail</label>
+                <input asp-for="CustomerEmail" class="form-control" />
+                <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerPassword" class="control-label">password</label>
+                <input asp-for="CustomerPassword" class="form-control" />
+                <span asp-validation-for="CustomerPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

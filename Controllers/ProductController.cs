@@ -32,7 +32,7 @@ namespace AmazonMVC.Controllers
 
         }
         [HttpPost]
-        public async Task<Product> GetProductById(int id)
+        public async Task<Product> GetProductById(int? id)
         {
             Product? p = new Product();
             using (var Client = new HttpClient())
@@ -157,6 +157,25 @@ namespace AmazonMVC.Controllers
             }
             return View(p);
 
+        }
+        //delete a product By using productId
+        public async Task<IActionResult> DeleteProduct(int? id)
+        {
+
+
+            var Product =await  GetProductById(id);
+            return View(Product);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(BaseUrl);
+                StringContent content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
+                var response = await httpClient.DeleteAsync("api/Product/"+id);
+                return RedirectToAction("GetProductByMerchant");
+            }
         }
 
 

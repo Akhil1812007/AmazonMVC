@@ -1,0 +1,60 @@
+﻿@model AmazonMVC.Models.Customer
+
+@{
+    ViewData["Title"] = "CustomerRegistration";
+}
+
+<h4> Register</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CustomerRegistration">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CustomerEmail" class="control-label">E-mail</label>
+                <input asp-for="CustomerEmail" class="form-control" />
+                <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerName" class="control-label">Name</label>
+                <input asp-for="CustomerName" class="form-control" />
+                <span asp-validation-for="CustomerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerPhone" class="control-label">Phone Number</label>
+                <input asp-for="CustomerPhone" class="form-control" />
+                <span asp-validation-for="CustomerPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerCity" class="control-label">city</label>
+                <input asp-for="CustomerCity" class="form-control" />
+                <span asp-validation-for="CustomerCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerPincode" class="control-label">Pincode</label>
+                <input asp-for="CustomerPincode" class="form-control" />
+                <span asp-validation-for="CustomerPincode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerPassword" class="control-label">Password</label>
+                <input asp-for="CustomerPassword" class="form-control" />
+                <span asp-validation-for="CustomerPassword" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="CustomerPassword" class="control-label">Confirm Password</label>
+                <input asp-for="CustomerPassword" class="form-control" />
+                <span asp-validation-for="CustomerPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
