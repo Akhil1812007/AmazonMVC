@@ -39,7 +39,7 @@ namespace AmazonMVC.Controllers
                 Client.BaseAddress = new Uri(BaseUrl);
                 Client.DefaultRequestHeaders.Clear();
                 Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await Client.GetAsync("api/Customer/"+id);
+                HttpResponseMessage Res = await Client.GetAsync("api/Cart/"+id);
                 if (Res.IsSuccessStatusCode)
                 {
                     var Response = Res.Content.ReadAsStringAsync().Result;
