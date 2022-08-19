@@ -13,7 +13,7 @@ namespace AmazonMVC.Controllers
         string BaseUrl = "https://localhost:7149/";
         public async Task<IActionResult> GetAllProduct()
         {
-            List<Product>? merchants = new List<Product>();
+            List<Product>? products = new List<Product>();
             using (var Client = new HttpClient())
             {
                 Client.BaseAddress = new Uri(BaseUrl);
@@ -23,10 +23,10 @@ namespace AmazonMVC.Controllers
                 if (Res.IsSuccessStatusCode)
                 {
                     var MerchantResponse = Res.Content.ReadAsStringAsync().Result;
-                    merchants = JsonConvert.DeserializeObject<List<Product>>(MerchantResponse);
+                    products = JsonConvert.DeserializeObject<List<Product>>(MerchantResponse);
 
                 }
-                return View(merchants);
+                return View(products);
 
             }
 

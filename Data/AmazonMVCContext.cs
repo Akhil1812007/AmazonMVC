@@ -21,5 +21,7 @@ namespace AmazonMVC.Data
         public DbSet<AmazonMVC.Models.Category>? Category { get; set; }
 
         public DbSet<AmazonMVC.Models.Cart>? Cart { get; set; }
+
+        public DbSet<AmazonMVC.Models.OrderMaster>? OrderMaster { get; set; }
     }
 }

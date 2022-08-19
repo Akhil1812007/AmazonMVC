@@ -25,7 +25,7 @@ namespace AmazonMVC.Controllers
                 httpClient.BaseAddress = new Uri(BaseUrl);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(ct), Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("api/Cart", content);
-                return RedirectToAction("GetCartByCustomer","Cart");
+                return RedirectToAction("CartByCustomerId", "Cart");
             }
 
         }
