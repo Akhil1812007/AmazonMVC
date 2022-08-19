@@ -56,24 +56,12 @@ namespace AmazonMVC.Controllers
         public async Task<IActionResult> GetAllCategory()
         {
             List<Category>? c = new List<Category>();
-            using (var Client = new HttpClient())
-            {
-                Client.BaseAddress = new Uri(BaseUrl);
-                Client.DefaultRequestHeaders.Clear();
-                Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await Client.GetAsync("api/Admin/GetAllCategory");
-                if (Res.IsSuccessStatusCode)
-                {
-                    var Response = Res.Content.ReadAsStringAsync().Result;
-                    c = JsonConvert.DeserializeObject<List<Category>>(Response);
-
-                }
-                return View(c);
-
-            }
+           
+            c = await ChooseCategory();
+            return View(c);
 
         }
-        
+        [HttpPost]
         public async Task<List<Category>> ChooseCategory()
         {
             List<Category> ?c = new List<Category>();

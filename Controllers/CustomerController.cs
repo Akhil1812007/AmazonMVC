@@ -44,7 +44,8 @@ namespace AmazonMVC.Controllers
                 {
                     var CustomerResponse = response.Content.ReadAsStringAsync().Result;
                      customer= JsonConvert.DeserializeObject<Customer>(CustomerResponse);
-                    TempData["CustomerId"] = customer.CustomerId;
+                    HttpContext.Session.SetInt32("CustomerId", customer.CustomerId);
+
                     return RedirectToAction("GetAllProduct", "Product");
                 }
                 else
