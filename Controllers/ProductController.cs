@@ -11,7 +11,7 @@ namespace AmazonMVC.Controllers
     public class ProductController : Controller
     {
         string BaseUrl = "https://localhost:7149/";
-        public async Task<IActionResult> GetAllProduct()
+        public async Task<List<Product>> ReturnAllProducts()
         {
             List<Product>? products = new List<Product>();
             using (var Client = new HttpClient())
@@ -26,9 +26,16 @@ namespace AmazonMVC.Controllers
                     products = JsonConvert.DeserializeObject<List<Product>>(MerchantResponse);
 
                 }
-                return View(products);
+                return products;
 
             }
+        }
+        public async Task<IActionResult> GetAllProduct()
+        {
+            var products = await  ReturnAllProducts();
+            return View(products);
+
+            
 
         }
         [HttpPost]

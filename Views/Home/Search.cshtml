@@ -1,0 +1,26 @@
+﻿@model AmazonMVC.Models.Product
+
+
+@{
+    ViewData["Title"] = "SearchForm";
+}
+<body >
+</style>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SearchResult" >
+            <h4>Search Result</h4>
+            <div class="form-group">
+                <label for="SearchPhrase" class="control-label"></label>
+                <input name="SearchPhrase" class="form-control" /><br />
+                <input type="submit" style="font-size:medium" value="Search" class="btn btn-success" />
+
+
+            </div>
+            
+        </form>
+    </div>
+</div>
+</body>
+
