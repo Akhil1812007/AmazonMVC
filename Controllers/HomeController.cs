@@ -41,28 +41,33 @@ namespace AmazonMVC.Controllers
             return View();
         }
         ProductController p=new ProductController();
-        public async Task<IActionResult> SearchResult(string SearchPhrase)
+        public async Task<IActionResult> SearchResult(string SearchPhrase, string option)
         {
+            //p.Name.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0
+
+
+
             List<Product> result = new List<Product>();
 
-            var products= await p.ReturnAllProducts();
-            foreach(var product in products)
+
+
+            var products = await p.ReturnAllProducts();
+            foreach (var product in products)
             {
-                if (product.ProductName.Contains(SearchPhrase))
+                if (option.Equals("ProductName") && product.ProductName.IndexOf(SearchPhrase, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     result.Add(product);
                 }
-                
+                else if (option.Equals("CategoryName") && product.Category.CategoryName.IndexOf(SearchPhrase, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    result.Add(product);
+                }
                 else
                 {
-                    ViewBag.Message = "No Result Found";
+                    ViewBag.ErrorMessage = "No Result Found";
                 }
-                
             }
             return View(result);
-
-
-            
         }
 
 

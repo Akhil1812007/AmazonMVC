@@ -1,7 +1,9 @@
 ﻿using AmazonMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net;
 using System.Net.Http.Headers;
+using System.Net.Mail;
 using System.Text;
 
 namespace AmazonMVC.Controllers
@@ -37,9 +39,40 @@ namespace AmazonMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> MerchantRegistration(Merchant merchant)
         {
-            
+            // Send Mail Confirmation for passsword
 
 
+
+            var senderEmail = new MailAddress("amazonsignup00@gmail.com", "Amazon");
+            var receiverEmail = new MailAddress(merchant.MerchantEmail, "Receiver");
+            var password = "jmkbxstayccjjnwu";
+            String b = "https://localhost:7139/Merchant/MerchantLogin";
+
+
+
+            var sub = "Hello " + merchant.MerchantName + "! Welcome to Amazon";
+            var body = "Your User Id: " + merchant.MerchantEmail + " And your password is :" + merchant.MerchantPassword + " Login link " + b;
+
+            var smtp = new SmtpClient
+            {
+                 Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(senderEmail.Address, password)
+            };
+            using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                Subject = sub,
+                Body = body
+                })
+            {
+                smtp.Send(mess);
+                //ViewBag.Message = String.Format("Registered Successfully!!\\ Please Check Your Mail to login.");
+            }
+
+            //------------------------------------------------------------------------------------------------------------------
 
             using (var httpClient = new HttpClient())
             {
@@ -47,9 +80,12 @@ namespace AmazonMVC.Controllers
                 StringContent content = new StringContent(JsonConvert.SerializeObject(merchant), Encoding.UTF8, "application/json");
                 var response=await httpClient.PostAsync("api/Merchant", content);
 
-               
 
-                return RedirectToAction("GetAllMerchant");
+
+
+                return NoContent();
+                        
+                
             }
 
         }

@@ -4,13 +4,13 @@
     var MerchantView= (bool)ViewData["MerchantView"];
     var SearchResult= (bool)ViewData["SearchResult"];
 }
-@if (MerchantView==true && ShoppingSession==false &&SearchResult==false)
+@if (MerchantView && !ShoppingSession && !SearchResult)
 {
     <p>
         <a asp-action="Create">Create New</a>
     </p>
 }
-@if(ShoppingSession==true && MerchantView == false && SearchResult==false)
+@if(ShoppingSession && !MerchantView  && !SearchResult)
 {
     
      <a asp-controller="Cart" asp-action="GetCartByCustomer"  >View cart</a> 
@@ -35,7 +35,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Category)
             </th>
-            @if(MerchantView==true){
+            @if(MerchantView){
 
                 <th>
                     @Html.DisplayNameFor(model => model.Merchant)
@@ -62,14 +62,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Category.CategoryName)
             </td>
-            @if(MerchantView==true)
+            @if(MerchantView)
             {
             <td>
                 @Html.DisplayFor(modelItem => item.Merchant.MerchantEmail)
             </td>
             }
 
-                @if (MerchantView==true && ShoppingSession==false && SearchResult==false)
+                @if (MerchantView && !ShoppingSession && !SearchResult)
                 {
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
