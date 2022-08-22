@@ -57,5 +57,9 @@ namespace AmazonMVC.Controllers
             }
 
         }
+        public async Task<IActionResult> Logout()
+        {
+           return  RedirectToAction("index", "Home");
+        }
     }
 }

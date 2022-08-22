@@ -17,9 +17,9 @@ namespace AmazonMVC.Controllers
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri(BaseUrl);
-                // StringContent content = new StringContent(JsonConvert.SerializeObject(cid), Encoding.UTF8, "application/json");
-                StringContent c = null;
-                HttpResponseMessage Res = await httpClient.PostAsync("api/Order/"+cid,c);
+                 StringContent content = new StringContent(JsonConvert.SerializeObject(cid), Encoding.UTF8, "application/json");
+               // StringContent c = null;
+                HttpResponseMessage Res = await httpClient.PostAsync("api/Order/"+cid,content);
                 if (Res.IsSuccessStatusCode)
                 {
                     var Response = Res.Content.ReadAsStringAsync().Result;
@@ -54,13 +54,16 @@ namespace AmazonMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Payment(int? id)
         {
-            OrderMaster orderMaster = await GetOrderMasterByID((int)id);
-            return View(orderMaster);
+            OrderMaster om = await GetOrderMasterByID((int)id);
+            return View(om);
 
         }
         [HttpPost]
         public async Task<IActionResult> Payment(OrderMaster orderMaster)
         {
+            var cid = HttpContext.Session.GetInt32("CustomerId");
+            orderMaster.CustomerId = cid;
+
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri(BaseUrl);

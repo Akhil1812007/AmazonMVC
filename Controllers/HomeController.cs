@@ -28,5 +28,15 @@ namespace AmazonMVC.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult RoleSelection()
+        {
+            return View();
+        }
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+       
     }
 }

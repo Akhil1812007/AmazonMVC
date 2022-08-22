@@ -19,7 +19,7 @@ namespace AmazonMVC.Controllers
         public async Task<IActionResult> AddToCart(Cart ct)
         {
             ct.ProductId = (int?)TempData["ProductId"];
-            ct.CustomerId = (int?)TempData["CustomerId"];
+            ct.CustomerId = (int)HttpContext.Session.GetInt32("CustomerId");
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri(BaseUrl);
