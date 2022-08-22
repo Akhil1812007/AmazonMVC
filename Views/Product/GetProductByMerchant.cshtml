@@ -2,63 +2,11 @@
 
 @{
     ViewData["Title"] = "GetProductByMerchant";
+    ViewData["MerchantView"] = true;
+    ViewData["ShoppingSession"] = false;
+    ViewData["SearchResult"] = false;
 }
 
-<h1>GetProductByMerchant</h1>
+<h4>Merchant View</h4>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductQnt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Merchant)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductQnt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductImage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Merchant.MerchantEmail)
-            </td>
-            <td>
-                <a asp-action="UpdateProduct" asp-route-id="@item.ProductId">Edit</a> |
-                <a asp-action="DeleteProduct" asp-route-id="@item.ProductId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<partial name="_ProductPartial" Models="Product" view-data="ViewData"></partial >

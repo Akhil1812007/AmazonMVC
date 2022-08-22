@@ -1,0 +1,91 @@
+﻿@model IEnumerable<AmazonMVC.Models.Product>
+@{
+    var ShoppingSession = (bool)ViewData["ShoppingSession"];
+    var MerchantView= (bool)ViewData["MerchantView"];
+    var SearchResult= (bool)ViewData["SearchResult"];
+}
+@if (MerchantView==true && ShoppingSession==false &&SearchResult==false)
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+@if(ShoppingSession==true && MerchantView == false && SearchResult==false)
+{
+    
+     <a asp-controller="Cart" asp-action="GetCartByCustomer"  >View cart</a> 
+                        
+                   
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductQnt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            @if(MerchantView==true){
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Merchant)
+                </th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductQnt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            @if(MerchantView==true)
+            {
+            <td>
+                @Html.DisplayFor(modelItem => item.Merchant.MerchantEmail)
+            </td>
+            }
+
+                @if (MerchantView==true && ShoppingSession==false && SearchResult==false)
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                    </td>
+                }
+                @if(ShoppingSession && !MerchantView && !SearchResult)
+                {
+                    <td>
+                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@item.ProductId">Add To Cart</a> 
+                        
+                    </td>
+                }
+                
+        </tr>
+}
+    </tbody>
+</table>

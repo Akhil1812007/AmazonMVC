@@ -2,53 +2,11 @@
 
 @{
     ViewData["Title"] = "GetAllProduct";
+    ViewData["ShoppingSession"] = true;
+    ViewData["MerchantView"] = false;
+    ViewData["SearchResult"] = false;
 }
 
 <h4>shopping session</h4>
+<partial name="_ProductPartial" Models="Product"  view-data="ViewData"></partial>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-           <th>
-                price
-            </th>
-            <th>
-                image
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-          
-            
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitPrice)
-            </td>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductImage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
-           
-            <td>
-                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@item.ProductId">Add to cart</a> 
-              
-                
-            </td>
-        </tr>
-}
-  <a asp-controller="Cart" asp-action="CartByCustomerId" >View cart</a> 
-    </tbody>
-</table>

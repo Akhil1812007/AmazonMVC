@@ -52,6 +52,7 @@ namespace AmazonMVC.Controllers
                 {
                     result.Add(product);
                 }
+                
                 else
                 {
                     ViewBag.Message = "No Result Found";
