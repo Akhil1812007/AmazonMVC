@@ -1,4 +1,5 @@
 ﻿using AmazonMVC.Models;
+using AmazonMVC.TokenModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net;
@@ -97,6 +98,7 @@ namespace AmazonMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> MerchantLogin(Merchant? merchant)
         {
+            MerchantToken? mt = new MerchantToken();
             
             using (HttpClient httpClient = new HttpClient())
             {
@@ -109,9 +111,16 @@ namespace AmazonMVC.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     var MerchantResponse = response.Content.ReadAsStringAsync().Result;
-                    merchant = JsonConvert.DeserializeObject<Merchant>(MerchantResponse);
+                    mt = JsonConvert.DeserializeObject<MerchantToken>(MerchantResponse);
+                    if(mt == null)
+                    {
+                        ViewBag.ErrorMessage = "Invalid Credentials";
+                        return View();
+                    }
                     TempData["MerchantId"] = merchant.MerchantId;
-                    HttpContext.Session.SetInt32("MerchantId", merchant.MerchantId);
+                    HttpContext.Session.SetInt32("MerchantId", mt.merchant.MerchantId);
+                    string token = mt.merchantToken;
+                    HttpContext.Session.SetString("token", token);
 
                     return RedirectToAction("GetProductByMerchant","Product");
                 }

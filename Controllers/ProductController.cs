@@ -100,6 +100,7 @@ namespace AmazonMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(Product product)
         {
+            product.MerchantId = HttpContext.Session.GetInt32("MerchantId");
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri(BaseUrl);
@@ -135,12 +136,13 @@ namespace AmazonMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProductByMerchant()
         {
-            var id = TempData["MerchantId"];
+            string? token = HttpContext.Session.GetString("token");
+            var id = HttpContext.Session.GetInt32("MerchantId");
             List<Product>? p = new List<Product>();
             using (var Client = new HttpClient())
             {
                 Client.BaseAddress = new Uri(BaseUrl);
-                Client.DefaultRequestHeaders.Clear();
+                Client.DefaultRequestHeaders.Authorization= new AuthenticationHeaderValue("Bearer", token);
                 Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = await Client.GetAsync("api/Merchant/MerchantId?MerchantId=" + id);
                 if (Res.IsSuccessStatusCode)
