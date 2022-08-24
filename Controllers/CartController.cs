@@ -1,4 +1,5 @@
 ﻿using AmazonMVC.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -32,7 +33,7 @@ namespace AmazonMVC.Controllers
         [HttpPost]
         public async Task<List<Cart>> GetCartByCustomer(int id) // getting cart list of a particular customer 
         {
-            
+           
             List<Cart>? c = new List<Cart>();
             using (var Client = new HttpClient())
             {
@@ -81,6 +82,40 @@ namespace AmazonMVC.Controllers
                 httpClient.BaseAddress = new Uri(BaseUrl);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(id), Encoding.UTF8, "application/json");
                 var response = await httpClient.DeleteAsync("api/Cart/" + id);
+                return RedirectToAction("CartByCustomerId");
+            }
+        }
+      
+        public async Task<IActionResult> UpdateCart(int id)
+        {
+            int cid = (int)HttpContext.Session.GetInt32("CustomerId");
+            List<Cart> CustomerCarts = (List<Cart>)await GetCartByCustomer(cid);
+            var TempCart = new Cart();
+            foreach (var cart in CustomerCarts)
+            {
+                if (cart.CartId == id)
+                {
+                    TempCart = cart;
+                    HttpContext.Session.SetInt32("ProductId", (int)TempCart.ProductId);
+                    break;
+                }
+            }
+
+            return View(TempCart);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateCart(Cart c)
+        {
+
+            c.CustomerId = HttpContext.Session.GetInt32("CustomerId");
+            c.ProductId = HttpContext.Session.GetInt32("ProductId");
+
+
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(BaseUrl);
+                StringContent content = new StringContent(JsonConvert.SerializeObject(c), Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync("api/Cart/" + c.CartId, content);
                 return RedirectToAction("CartByCustomerId");
             }
         }

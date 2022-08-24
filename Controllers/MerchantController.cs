@@ -119,7 +119,7 @@ namespace AmazonMVC.Controllers
                     }
                     TempData["MerchantId"] =mt.merchant.MerchantId;
                     HttpContext.Session.SetInt32("MerchantId", mt.merchant.MerchantId);
-                    HttpContext.Session.SetString("MerchantEmail", mt.merchant.MerchantEmail);
+                    HttpContext.Session.SetString("MerchantEmail", mt.merchant.MerchantName);
 
 
                     string token = mt.merchantToken;

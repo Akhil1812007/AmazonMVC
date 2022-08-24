@@ -5,9 +5,10 @@
     ViewData["MerchantView"] = true;
     ViewData["ShoppingSession"] = false;
     ViewData["SearchResult"] = false;
+    Layout = "_pastLoginLayout";
 }
 
-<h3>hello @ViewBag.MerchantEmail</h3>
+<h3>Hello @ViewBag.MerchantEmail!</h3>
 @if (ViewBag.ErrorMessage != null)
 {
     <div>@ViewBag.ErrorMessage</div>

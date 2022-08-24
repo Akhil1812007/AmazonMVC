@@ -5,8 +5,9 @@
     ViewData["ShoppingSession"] = true;
     ViewData["MerchantView"] = false;
     ViewData["SearchResult"] = false;
+     Layout = "_pastLoginLayout";
 }
-
-<h4>shopping session</h4>
+<h3 class="text-center">hello @ViewBag.CustomerName!</h3>
+<h4 class="text-center">shopping session</h4>
 <partial name="_ProductPartial" Models="Product"  view-data="ViewData"></partial>
 

@@ -2,9 +2,10 @@
 
 @{
     ViewData["Title"] = "Add Product";
+    Layout = "_pastLoginLayout";
 }
 
-<h3>hello @ViewBag.MerchantEmail</h3>
+<h3 class="text-center">hello @ViewBag.MerchantEmail !</h3>
 <h4> Add Product</h4>
 <hr />
 <div class="row">
@@ -27,7 +28,7 @@
                 <span asp-validation-for="ProductQnt" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductImage" class="control-label">Image</label>
+                <label asp-for="ProductImage" class="control-label">Image</label><br />
                 <input asp-for="ProductImage" type="file"/>
                 <span asp-validation-for="ProductImage" class="text-danger"></span>
             </div>
@@ -35,16 +36,17 @@
                 <label asp-for="CategoryId" class="control-label">Category Id </label>
                 <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryList as SelectList">Select Category</select>
             </div>
+            <br/>
             
             <div class="form-group">
-                <input type="submit" value="ADD" class="btn btn-primary" />
+                <input type="submit" value="add" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="text-bg-success" asp-action="Index"> your product list </a>
 </div>
 
 @section Scripts {

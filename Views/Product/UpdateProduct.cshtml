@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "UpdateProduct";
+    Layout = "_pastLoginLayout";
 }
 
 <h4>UpdateProduct</h4>
@@ -28,8 +29,8 @@
                 <span asp-validation-for="ProductQnt" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductImage" class="control-label"></label>
-                <input asp-for="ProductImage" class="form-control" />
+                <label asp-for="ProductImage" class="control-label">Image</label><br />
+                <input asp-for="ProductImage" type="file"/>
                 <span asp-validation-for="ProductImage" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -32,6 +32,7 @@ namespace AmazonMVC.Controllers
         }
         public async Task<IActionResult> GetAllProduct()
         {
+            ViewBag.CustomerName = HttpContext.Session.GetString("CustomerName"); 
             var products = await  ReturnAllProducts();
             return View(products);
 
@@ -101,13 +102,16 @@ namespace AmazonMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(Product product)
         {
+            string? token = HttpContext.Session.GetString("token");
+
             product.MerchantId = HttpContext.Session.GetInt32("MerchantId");
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri(BaseUrl);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("api/Product/product", content);
-                return RedirectToAction("GetAllProduct");
+                return RedirectToAction("GetProductByMerchant");
             }
 
         }
@@ -131,7 +135,7 @@ namespace AmazonMVC.Controllers
                 httpClient.BaseAddress = new Uri(BaseUrl);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/json");
                 var response = await httpClient.PutAsync("api/Product/"+product, content);
-                return RedirectToAction("GetAllProduct");
+                return RedirectToAction("GetProductByMerchant");
             }
         }
         [HttpGet]

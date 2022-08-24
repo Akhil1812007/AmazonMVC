@@ -42,8 +42,13 @@ namespace AmazonMVC.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> SearchResult(string  SearchPhrase, string  option)
+        public async Task<IActionResult> SearchResult(string ?SearchPhrase, string ?option)
         {
+            if (SearchPhrase == null || option==null)
+            {
+                ViewBag.ErrorMessage = "No Result Found";
+                return NoContent();
+            }
             
             List<Product>? result = new List<Product>();
             List<Product>? products = await p.ReturnAllProducts();

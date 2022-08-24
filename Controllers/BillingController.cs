@@ -61,6 +61,7 @@ namespace AmazonMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Payment(OrderMaster orderMaster)
         {
+            orderMaster.OrderDate = DateTime.Now;
             var cid = HttpContext.Session.GetInt32("CustomerId");
             orderMaster.CustomerId = cid;
 
@@ -72,5 +73,7 @@ namespace AmazonMVC.Controllers
                 return RedirectToAction("GetAllProduct","Product");
             }
         }
+        
+
     }
 }

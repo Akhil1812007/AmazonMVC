@@ -7,30 +7,39 @@
 @if (MerchantView && !ShoppingSession && !SearchResult)
 {
     <p>
-        <a asp-controller="Product" asp-action="AddProduct">Create New</a>
+        <a asp-controller="Product" asp-action="AddProduct">Add new product</a>
     </p>
 }
 @if(ShoppingSession && !MerchantView  && !SearchResult)
 {
-    
-     <a asp-controller="Cart" asp-action="GetCartByCustomer"  >View cart</a> 
-                        
+    <p>
+       <h4> <a asp-controller="Cart" asp-action="CartByCustomerId">my cart</a></h4>
+    </p>
                    
 }
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProductName)
+                name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UnitPrice)
+               unit
             </th>
+            @if (ShoppingSession || SearchResult)
+            {
+                <th>
+                    stock left
+                </th>
+            }
+            @if (MerchantView)
+            {
+                <th>
+                    quantity
+                </th>
+            }
             <th>
-                @Html.DisplayNameFor(model => model.ProductQnt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImage)
+                image
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Category)
@@ -72,9 +81,9 @@
                 @if (MerchantView && !ShoppingSession && !SearchResult)
                 {
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                        <a asp-action="UpdateProduct" asp-route-id="@item.ProductId">Edit</a> |
+                        
+                        <a asp-action="DeleteProduct" asp-route-id="@item.ProductId">Delete</a>
                     </td>
                 }
                 @if(ShoppingSession && !MerchantView && !SearchResult)
