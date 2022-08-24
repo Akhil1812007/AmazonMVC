@@ -84,7 +84,7 @@ namespace AmazonMVC.Controllers
 
 
 
-                return NoContent();
+                return RedirectToAction("Logout","Home");
                         
                 
             }

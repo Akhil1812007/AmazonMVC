@@ -60,7 +60,8 @@ namespace AmazonMVC.Controllers
                 httpClient.BaseAddress = new Uri(BaseUrl);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("api/Customer", content);
-                return NoContent();
+                return RedirectToAction("Logout","Home");
+
             }
 
         }
