@@ -91,6 +91,7 @@ namespace AmazonMVC.Controllers
         }
         public async Task<IActionResult> AddProduct()
         {
+            ViewBag.MerchantEmail = HttpContext.Session.GetString("MerchantEmail"); ;
             var CategoryList = await ChooseCategory();
 
             ViewBag.CategoryList = new SelectList(CategoryList, "CategoryId", "CategoryName");
@@ -136,6 +137,7 @@ namespace AmazonMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProductByMerchant()
         {
+            ViewBag.MerchantEmail = HttpContext.Session.GetString("MerchantEmail");
             string? token = HttpContext.Session.GetString("token");
             var id = HttpContext.Session.GetInt32("MerchantId");
             List<Product>? p = new List<Product>();

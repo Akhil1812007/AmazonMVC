@@ -1,9 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var customerReg = (bool)ViewData["customerReg"];
+    var merchantReg = (bool)ViewData["merchantReg"];
+   
+   
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AmazonMVC</title>
+    <title>@ViewData["Title"] - Login/Register</title>
     <link rel="stylesheet" href="~/css/StyleSheet.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AmazonMVC.styles.css" asp-append-version="true" />
@@ -27,16 +33,19 @@
                               <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Search">search</a>                     
                         </li>
                     </ul>
-                    <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle"  id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    select your role
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="CustomerLogin">Customer</a></li>
-                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Merchant" asp-action="MerchantLogin">Merchant</a></li>
-               
-                    </ul>              
-                    </div> 
+                    @if (customerReg)
+                    {
+
+
+                        <div>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Customer"asp-action="CustomerRegistration" >new customer</a>
+                        </div>
+                    }
+                    else{
+                        <div>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Merchant" asp-action="MerchantRegistration">new merchant</a>
+                        </div>
+                    }
                    
                 </div>
                 
@@ -61,3 +70,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

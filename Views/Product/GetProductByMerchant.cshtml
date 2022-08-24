@@ -7,6 +7,12 @@
     ViewData["SearchResult"] = false;
 }
 
-<h4>Merchant View</h4>
+<h3>hello @ViewBag.MerchantEmail</h3>
+@if (ViewBag.ErrorMessage != null)
+{
+    <div>@ViewBag.ErrorMessage</div>
+}
 
-<partial name="_ProductPartial" Models="Product" view-data="ViewData"></partial >
+
+ <partial name="_ProductPartial" Models="Product" view-data="ViewData"></partial >
+

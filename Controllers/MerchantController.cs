@@ -117,10 +117,13 @@ namespace AmazonMVC.Controllers
                         ViewBag.ErrorMessage = "Invalid Credentials";
                         return View();
                     }
-                    TempData["MerchantId"] = merchant.MerchantId;
+                    TempData["MerchantId"] =mt.merchant.MerchantId;
                     HttpContext.Session.SetInt32("MerchantId", mt.merchant.MerchantId);
+                    HttpContext.Session.SetString("MerchantEmail", mt.merchant.MerchantEmail);
+
+
                     string token = mt.merchantToken;
-                    HttpContext.Session.SetString("token", token);
+                    HttpContext.Session.SetString("token",token);
 
                     return RedirectToAction("GetProductByMerchant","Product");
                 }

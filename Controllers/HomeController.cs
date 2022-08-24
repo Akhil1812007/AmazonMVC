@@ -1,15 +1,17 @@
 ﻿using AmazonMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AmazonMVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        
-        
-      
+
+        ProductController p = new ProductController();
+
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -34,31 +36,24 @@ namespace AmazonMVC.Controllers
        
         public async Task<IActionResult> Logout()
         {
-            return RedirectToAction("index", "Home");
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Search()
         {
             return View();
         }
-        ProductController p=new ProductController();
-        public async Task<IActionResult> SearchResult(string SearchPhrase, string option)
+        public async Task<IActionResult> SearchResult(string  SearchPhrase, string  option)
         {
-            //p.Name.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0
-
-
-
-            List<Product> result = new List<Product>();
-
-
-
-            var products = await p.ReturnAllProducts();
+            
+            List<Product>? result = new List<Product>();
+            List<Product>? products = await p.ReturnAllProducts();
             foreach (var product in products)
             {
-                if (option.Equals("ProductName") && product.ProductName.IndexOf(SearchPhrase, StringComparison.OrdinalIgnoreCase) >= 0)
+                if (option.Equals("ProductName") && (product.ProductName)?.IndexOf(SearchPhrase, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     result.Add(product);
                 }
-                else if (option.Equals("CategoryName") && product.Category.CategoryName.IndexOf(SearchPhrase, StringComparison.OrdinalIgnoreCase) >= 0)
+                else if (option.Equals("CategoryName") && product.Category?.CategoryName?.IndexOf(SearchPhrase, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     result.Add(product);
                 }
@@ -69,6 +64,7 @@ namespace AmazonMVC.Controllers
             }
             return View(result);
         }
+       
 
 
     }

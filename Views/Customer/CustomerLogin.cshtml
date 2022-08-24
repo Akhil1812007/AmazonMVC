@@ -2,9 +2,12 @@
 
 @{
     ViewData["Title"] = "CustomerLogin";
+    ViewData["customerReg"] = true;
+     ViewData["merchantReg"] = false;
+    Layout = "_loginLayout";
 }
 
-<h4>CustomerLogin</h4>
+<h4>Login</h4>
 
 <hr />
 @if (ViewBag.ErrorMessage!=null)
