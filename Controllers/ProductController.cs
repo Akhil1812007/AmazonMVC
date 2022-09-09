@@ -10,7 +10,8 @@ namespace AmazonMVC.Controllers
 {
     public class ProductController : Controller
     {
-        string BaseUrl = "https://localhost:7149/";
+        //string BaseUrl = "https://localhost:7149/";
+        string BaseUrl = "https://app-amazonapi.azurewebsites.net/";
         public async Task<List<Product>> ReturnAllProducts()
         {
             List<Product>? products = new List<Product>();
@@ -32,6 +33,7 @@ namespace AmazonMVC.Controllers
         }
         public async Task<IActionResult> GetAllProduct()
         {
+            ViewBag.Login = "you have successfully sign in";
             ViewBag.CustomerName = HttpContext.Session.GetString("CustomerName"); 
             var products = await  ReturnAllProducts();
             return View(products);
@@ -138,7 +140,10 @@ namespace AmazonMVC.Controllers
                 return RedirectToAction("GetProductByMerchant");
             }
         }
+        
         [HttpGet]
+        
+
         public async Task<IActionResult> GetProductByMerchant()
         {
             ViewBag.MerchantEmail = HttpContext.Session.GetString("MerchantEmail");

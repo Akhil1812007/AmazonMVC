@@ -5,7 +5,20 @@
     Layout = "_pastLoginLayout";
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
 <h4>My cart</h4>
+@if (TempData["ItemAdd"]!= null)
+    {
+        <script type="text/javascript">
+        $(document).ready(function () {
+                toastr.warning('@TempData["ItemAdd"]', '', { positionClass: 'toast-bottom-full-width' });
+           
+        });
+    </script>}
 <table class="table">
     @if (Model.Count() == 0)
     {

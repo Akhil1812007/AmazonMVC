@@ -9,7 +9,8 @@ namespace AmazonMVC.Controllers
 {
     public class CartController : Controller
     {
-        string BaseUrl = "https://localhost:7149/";
+        //string BaseUrl = "https://localhost:7149/";
+        string BaseUrl = "https://app-amazonapi.azurewebsites.net/";
 
         public IActionResult AddToCart(int id)
         {
@@ -26,6 +27,7 @@ namespace AmazonMVC.Controllers
                 httpClient.BaseAddress = new Uri(BaseUrl);
                 StringContent content = new StringContent(JsonConvert.SerializeObject(ct), Encoding.UTF8, "application/json");
                 var response = await httpClient.PostAsync("api/Cart", content);
+                TempData["ItemAdd"] ="Item Added Successfully";
                 return RedirectToAction("CartByCustomerId", "Cart");
             }
 
@@ -33,7 +35,7 @@ namespace AmazonMVC.Controllers
         [HttpPost]
         public async Task<List<Cart>> GetCartByCustomer(int id) // getting cart list of a particular customer 
         {
-           
+            
             List<Cart>? c = new List<Cart>();
             using (var Client = new HttpClient())
             {
@@ -53,6 +55,7 @@ namespace AmazonMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> CartByCustomerId()
         {
+          
             int id = (int)HttpContext.Session.GetInt32("CustomerId");
             List<Cart> c = await GetCartByCustomer(id);
             return View(c);

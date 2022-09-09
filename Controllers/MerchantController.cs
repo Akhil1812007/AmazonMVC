@@ -11,7 +11,8 @@ namespace AmazonMVC.Controllers
 {
     public class MerchantController : Controller
     {
-        string BaseUrl = "https://localhost:7149/";
+        // string BaseUrl = "https://localhost:7149/";
+        string BaseUrl = "https://app-amazonapi.azurewebsites.net/";
         public async Task<IActionResult> GetAllMerchant()
         {
             List<Merchant>? merchants = new List<Merchant>();

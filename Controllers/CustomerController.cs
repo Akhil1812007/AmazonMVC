@@ -9,7 +9,8 @@ namespace AmazonMVC.Controllers
 {
     public class CustomerController : Controller
     {
-        string BaseUrl = "https://localhost:7149/";
+        //string BaseUrl = "https://localhost:7149/";
+        string BaseUrl = "https://app-amazonapi.azurewebsites.net/";
         private object merchant;
 
         public IActionResult CustomerRegistration()
@@ -86,7 +87,7 @@ namespace AmazonMVC.Controllers
                     HttpContext.Session.SetInt32("CustomerId", customer.CustomerId);
                     HttpContext.Session.SetString("CustomerName", customer.CustomerName);
 
-
+                    
 
                     return RedirectToAction("GetAllProduct", "Product");
                 }

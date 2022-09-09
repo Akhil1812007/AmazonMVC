@@ -8,7 +8,8 @@ namespace AmazonMVC.Controllers
 {
     public class BillingController : Controller
     {
-        string BaseUrl = "https://localhost:7149/";
+        //string BaseUrl = "https://localhost:7149/";
+        string BaseUrl = "https://app-amazonapi.azurewebsites.net/";
         [HttpPost]
         public async Task<IActionResult> Buy()// for filling the Order master 
         {
